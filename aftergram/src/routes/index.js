@@ -15,5 +15,10 @@ export const router = new VueRouter({
       name: 'main',
       component: () => import('@/views/MainPage.vue'),
     },
+    {
+      path: '/analyze',
+      name: 'analyze',
+      component: () => import('@/views/AnalyzePage.vue'),
+    },
   ]
 })
