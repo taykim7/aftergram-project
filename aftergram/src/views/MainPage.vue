@@ -20,16 +20,14 @@
     <!-- 몸무게 입력 -->
     <div>
       <div>
-        <button @click="calgram(1.0)">1.0</button>
+        <button @click="calgram(-1.0)">1.0</button>
+        <button @click="calgram(-0.1)">0.1</button>
         <button @click="calgram(0.1)">0.1</button>
+        <button @click="calgram(1.0)">1.0</button>
       </div>
       <div>
         <input type="text" v-model="mygram">
         kg
-      </div>
-      <div>
-        <button @click="calgram(-0.1)">0.1</button>
-        <button @click="calgram(-1.0)">1.0</button>
       </div>
       <div>
         <div v-if="!memoyn" @click="writeMemo">메모</div>
