@@ -7,17 +7,21 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     email: '',
+    uid: '',
+    nickname: '',
   },
   getters: {},
   mutations: {
-    setEmail(state, email) { 
-      state.email = email;
+    setUid(state, uid) { 
+      state.uid = uid;
     },
   },
   actions: {
     async LOGIN({ commit }, userData) {
-      await loginUser(userData);
-      commit('setEmail', userData.email);
+      // TODO 로그인 성공 유무 분기 처리
+      const response = await loginUser(userData);
+      // uid 저장
+      commit('setUid', response);
     },
   }
 });
