@@ -1,6 +1,10 @@
 <template>
   <header>
-    <h1> aftergram </h1>
+    <div>
+      <h1 class="page-header">aftergram</h1>
+    </div>
+    <div class="navigations">
+    </div>
   </header>
 </template>
 

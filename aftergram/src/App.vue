@@ -12,10 +12,11 @@ export default {
   name: 'App',
   components: {
     AppHeader,
-  }
+  },
 }
 </script>
 
 <style>
-@import './css/reset.css';
+/* @import './css/reset.css';
+@import './css/common.css'; */
 </style>
