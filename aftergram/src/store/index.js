@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { loginUser } from '@/api/auth'
+import { loginUser, registerUser } from '@/api/auth'
 import { createPost, fetchAllPosts } from '@/api/posts'
 
 Vue.use(Vuex);
@@ -40,7 +40,11 @@ export default new Vuex.Store({
       // uid 저장
       commit('setUid', response);
     },
-
+    async REGISTER({ commit }, userData) {
+      const { data } = await registerUser(userData);
+      commit('setMessage', `${data.username} 님이 가입되었습니다.`);
+      // TODO 닉네임 로직 추가 필요
+    },
     // 게시
     async POST({ commit }, postData) {
       // TODO 성공 유무 분기 처리

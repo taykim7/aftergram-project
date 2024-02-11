@@ -1,9 +1,21 @@
 // 로그인, 회원가입, 탈퇴 API
 import {
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged
 } from 'firebase/auth';
 import { auth } from '../plugins/firebase';
+
+// 회원가입 API
+async function registerUser(userData) { 
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    userData.email,
+    userData.password
+  );
+  const user = userCredential;
+  console.log("회원가입 성공", user);
+}
 
 // 로그인 API
 async function loginUser(userData) {
@@ -27,4 +39,5 @@ async function loginUser(userData) {
 
 export {
   loginUser,
+  registerUser,
 }
