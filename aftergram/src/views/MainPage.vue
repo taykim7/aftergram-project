@@ -104,8 +104,8 @@ export default {
     async fetchGram() {
       const postData = {
         uid: this.$store.state.uid,
-        createdDate: this.today,
-        standardDate: this.standardDate,
+        createdDate: `${this.today.getFullYear()}-${this.today.getMonth() + 1}-${this.today.getDate()}`,
+        standardDate: `${this.standardDate.getFullYear()}-${this.standardDate.getMonth() + 1}-${this.standardDate.getDate()}`,
         memo: this.memo,
         gram: this.gram
       };
