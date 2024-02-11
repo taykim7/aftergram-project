@@ -2,7 +2,7 @@ import { db } from '../plugins/firebase';
 import {
   doc,
   setDoc,
-  // getDoc
+  getDoc
 } from 'firebase/firestore';
 
 // 생성
@@ -15,6 +15,14 @@ function createPost(postData) {
   });
 }
 
+// TODO 조회
+async function fetchPost(uid) {
+  const docRef = doc(db, "post", uid);
+  const docSnap = await getDoc(docRef)
+  console.log(docSnap.data());
+}
+
 export {
   createPost,
+  fetchPost
 }

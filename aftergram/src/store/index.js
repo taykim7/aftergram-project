@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser } from '@/api/auth'
-import { createPost } from '@/api/posts'
+import { createPost, fetchPost } from '@/api/posts'
 
 Vue.use(Vuex);
 
@@ -30,6 +30,11 @@ export default new Vuex.Store({
     async POST({ commit }, postData) {
       // TODO 성공 유무 분기 처리
       await createPost(postData);
+      commit('setEmail', '');
+    },
+    async FETCH({ commit }, uid) {
+      // TODO 성공 유무 분기 처리
+      await fetchPost(uid);
       commit('setEmail', '');
     },
   }
