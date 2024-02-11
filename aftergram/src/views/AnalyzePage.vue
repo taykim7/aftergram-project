@@ -1,14 +1,16 @@
 <template>
   <div>
-    분석하기
+    <h1>분석 페이지</h1>
+    <analyze-detail></analyze-detail>
   </div>
 </template>
 
 <script>
+import AnalyzeDetail from '../components/AnalyzeDetail.vue';
+
 export default {
-  mounted() {
-    console.log(this.$store.state.uid)
-    this.$store.dispatch('FETCH', this.$store.state.uid);
+  components: {
+    AnalyzeDetail,
   }
 }
 </script>
