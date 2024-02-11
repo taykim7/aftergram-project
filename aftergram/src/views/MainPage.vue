@@ -6,7 +6,8 @@
       {{ selectedYear }}년 {{ selectedMonth }}월
       <!-- <button>오늘</button> -->
       <div>
-        <span v-for="(day, index) in selectDaysArr" :key="index" @click="selectDate(day.split('-')[0], day.split('-')[1], day.split('-')[2])">
+        <span v-for="(day, index) in selectDaysArr" :key="index"
+        @click="selectDate(day.split('-')[0], day.split('-')[1], day.split('-')[2])">
           <b v-if="3 === index">
             {{ day.split('-')[2] }}
           </b>
@@ -40,7 +41,7 @@
 
     <!-- 저장, 분석 버튼 -->
     <div>
-      <button @click="fetchGram()">저장</button>
+      <button v-if="!isFuture" @click="fetchGram()">저장</button>
       <router-link to="/analyze">분석</router-link>
     </div>
   </div>
@@ -63,6 +64,9 @@ export default {
     }
   }, 
   computed: {
+    isFuture() {
+      return this.today < this.standardDate;
+    }
   },
   async mounted() {
     this.today = new Date();
