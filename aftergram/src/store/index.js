@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser } from '@/api/auth'
-import { createPost, fetchPost } from '@/api/posts'
+import { createPost, fetchAllPosts } from '@/api/posts'
 
 Vue.use(Vuex);
 
@@ -10,32 +10,49 @@ export default new Vuex.Store({
     email: '',
     uid: '',
     nickname: '',
+    posts: [],
   },
-  getters: {},
+  getters: {
+    // 로그인 여부
+    isLogin(state) {
+      return state.uid !== '';
+    }
+  },
   mutations: {
     setUid(state, uid) { 
       state.uid = uid;
     },
-    setEmial(state, email) { 
+    clearUid(state) {
+      state.uid = '';
+    },
+    setEmail(state, email) { 
       state.email = email;
     },
+    setPosts(state, posts) {
+      state.posts = posts;
+    }
   },
   actions: {
+    // 로그인
     async LOGIN({ commit }, userData) {
       // TODO 로그인 성공 유무 분기 처리
       const response = await loginUser(userData);
       // uid 저장
       commit('setUid', response);
     },
+
+    // 게시
     async POST({ commit }, postData) {
       // TODO 성공 유무 분기 처리
       await createPost(postData);
       commit('setEmail', '');
     },
-    async FETCH({ commit }, uid) {
+
+    // 조회
+    async FETCH({ commit }) {
       // TODO 성공 유무 분기 처리
-      await fetchPost(uid);
-      commit('setEmail', '');
+      const response = await fetchAllPosts(this.state.uid);
+      commit('setPosts', response);
     },
   }
 });

@@ -1,13 +1,20 @@
 import { db } from '../plugins/firebase';
 import {
   doc,
+  query,
+  collection,
+  // where,
   setDoc,
-  getDoc
+  // getDoc,
+  getDocs,
+  // updateDoc,
+  // deleteDoc
 } from 'firebase/firestore';
 
 // 생성
 function createPost(postData) {
-  setDoc(doc(db, "post", postData.uid), {
+  const key = postData.standardDate;
+  setDoc(doc(db, "post", `${postData.uid}/datas/${key}`), {
     createdDate: postData.createdDate,
     standardDate: postData.standardDate,
     memo: postData.memo,
@@ -16,13 +23,18 @@ function createPost(postData) {
 }
 
 // TODO 조회
-async function fetchPost(uid) {
-  const docRef = doc(db, "post", uid);
-  const docSnap = await getDoc(docRef)
-  console.log(docSnap.data());
+async function fetchAllPosts(uid) {
+  const q = query(collection(db, `post/${uid}/datas`));
+  const querySnapshot = await getDocs(q);
+  var response = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    response.push(doc.data());
+  });
+  return response;
 }
 
 export {
   createPost,
-  fetchPost
+  fetchAllPosts
 }
