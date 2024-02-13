@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       today: {},
-      standardDate: {},
+      standardDate: '',
       gram: 0,
       memo: '',
       memoyn: false,
@@ -66,9 +66,14 @@ export default {
   computed: {
     isFuture() {
       return this.today < this.standardDate;
-    }
+    },
+    posts() {
+      return this.$store.state.posts;
+    },
   },
   async mounted() {
+    await this.$store.dispatch('FETCH');
+    console.log(this.$store.state.posts);
     this.today = new Date();
     this.init();
   },
@@ -77,9 +82,15 @@ export default {
       this.selectWeek(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
       this.initGram();
     },
+
     initGram() {
-      this.gram = 66.6;
+      if (this.posts) {
+        this.gram = this.posts[0].gram;
+      } else {
+        this.gram =  0;
+      }
     },
+
     // 몸무게 계산
     calgram(gram) {
       this.gram = Math.round((this.gram + gram) * 10) / 10;
@@ -87,6 +98,7 @@ export default {
     selectDate(year, month, date) {
       this.selectWeek(year, month - 1, date);
     },
+
     // 선택된 날 기준 한 주 구성
     selectWeek(year, month, date) {
       this.standardDate = new Date(year, month, date);
@@ -108,12 +120,22 @@ export default {
     async fetchGram() {
       const postData = {
         uid: this.$store.state.uid,
-        createdDate: `${this.today.getFullYear()}-${this.today.getMonth() + 1}-${this.today.getDate()}`,
-        standardDate: `${this.standardDate.getFullYear()}-${this.standardDate.getMonth() + 1}-${this.standardDate.getDate()}`,
+        createdDate: this.dateFormat(this.today),
+        standardDate: this.dateFormat(this.standardDate),
         memo: this.memo,
         gram: this.gram
       };
       await this.$store.dispatch('POST', postData);
+    },
+    // 날짜 포맷팅
+    dateFormat(date) {
+      if (date) {
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const dateStr = `${year}${month}${day}`;
+        return dateStr;
+      } else return 0;
     }
   }
 }

@@ -3,6 +3,7 @@ import {
   doc,
   query,
   collection,
+  orderBy,
   // where,
   setDoc,
   // getDoc,
@@ -24,7 +25,7 @@ function createPost(postData) {
 
 // TODO 조회
 async function fetchAllPosts(uid) {
-  const q = query(collection(db, `post/${uid}/datas`));
+  const q = query(collection(db, `post/${uid}/datas`), orderBy('standardDate', 'desc'));
   const querySnapshot = await getDocs(q);
   var response = [];
   querySnapshot.forEach((doc) => {
