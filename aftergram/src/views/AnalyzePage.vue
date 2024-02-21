@@ -4,16 +4,27 @@
     <div>
       <router-link to="/main">메인</router-link>
     </div>
-    <analyze-detail></analyze-detail>
+    <!-- TODO 차트 -->
+    <ul>
+      <AnalyzeList
+      v-for="(post, index) in posts"
+      :key="index"
+      :post="post"></AnalyzeList>
+    </ul>
   </div>
 </template>
 
 <script>
-import AnalyzeDetail from '../components/AnalyzeDetail.vue';
+import AnalyzeList from '../components/AnalyzeList.vue';
 
 export default {
   components: {
-    AnalyzeDetail,
+    AnalyzeList,
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts;
+    },
   }
 }
 </script>
