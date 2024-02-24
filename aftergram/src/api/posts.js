@@ -4,11 +4,9 @@ import {
   query,
   collection,
   orderBy,
-  // where,
   setDoc,
-  // getDoc,
   getDocs,
-  // updateDoc,
+  updateDoc,
   // deleteDoc
 } from 'firebase/firestore';
 
@@ -34,8 +32,17 @@ async function fetchAllPosts(uid) {
   });
   return response;
 }
+// 수정
+function updatePost(postData) {
+  const key = postData.standardDate;
+  updateDoc(doc(db, "post", `${postData.uid}/datas/${key}`), {
+    memo: postData.memo,
+    gram: postData.gram
+  });
+}
 
 export {
   createPost,
-  fetchAllPosts
+  fetchAllPosts,
+  updatePost,
 }

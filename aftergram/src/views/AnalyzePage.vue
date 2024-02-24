@@ -9,7 +9,8 @@
       <AnalyzeList
       v-for="(post, index) in posts"
       :key="index"
-      :post="post"></AnalyzeList>
+      :post="post"
+      @update="updatePost"></AnalyzeList>
     </ul>
   </div>
 </template>
@@ -25,6 +26,11 @@ export default {
     posts() {
       return this.$store.state.posts;
     },
+  },
+  methods: {
+    async updatePost(postData) {
+      await this.$store.dispatch('UPDATE', postData);
+    }
   }
 }
 </script>

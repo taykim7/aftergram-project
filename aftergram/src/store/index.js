@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser, registerUser } from '@/api/auth'
-import { createPost, fetchAllPosts } from '@/api/posts'
+import { createPost, fetchAllPosts, updatePost } from '@/api/posts'
 
 Vue.use(Vuex);
 
@@ -40,6 +40,7 @@ export default new Vuex.Store({
       // uid 저장
       commit('setUid', response);
     },
+    // 회원가입
     async REGISTER({ commit }, userData) {
       const { data } = await registerUser(userData);
       commit('setMessage', `${data.username} 님이 가입되었습니다.`);
@@ -51,10 +52,17 @@ export default new Vuex.Store({
       await createPost(postData);
       commit('setEmail', '');
     },
-
     // 조회
     async FETCH({ commit }) {
       // TODO 성공 유무 분기 처리
+      const response = await fetchAllPosts(this.state.uid);
+      commit('setPosts', response);
+    },
+    // 수정
+    async UPDATE({ commit }, postData) {
+      // TODO 성공 유무 분기 처리
+      await updatePost(postData);
+      // 새로 조회
       const response = await fetchAllPosts(this.state.uid);
       commit('setPosts', response);
     },
