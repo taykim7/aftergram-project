@@ -15,8 +15,8 @@
     </div>
     <div>
       <!-- TODO 수정, 삭제 추가 -->
-      <button @click="edit">{{ editText }}</button>
-      <button>삭제</button>
+      <button @click="tryUpdate">{{ editText }}</button>
+      <button @click="tryDelete">삭제</button>
     </div>
   </li>
 </template>
@@ -52,7 +52,7 @@ export default {
       let day = date.substring(6);
       return `${year}년 ${month}월 ${day}일`;
     },
-    async edit() {
+    async tryUpdate() {
       if (!this.editFlag) {
         this.editFlag = !this.editFlag;
       } else {
@@ -65,8 +65,15 @@ export default {
         }
       }
     },
+    async tryDelete() {
+      const result = window.confirm('정말 삭제하실건가요?');
+      if (result) {
+        await this.deleteGram();
+        alert('삭제완료');
+      }
+    },
     // 게시글 수정
-    async updateGram() {
+    updateGram() {
       const postData = {
         uid: this.$store.state.uid,
         standardDate: this.standardDate,
@@ -75,6 +82,14 @@ export default {
       };
       this.$emit("update", postData);
     },
+    // 게시글 삭제
+    deleteGram() {
+      const postData = {
+        uid: this.$store.state.uid,
+        standardDate: this.standardDate,
+      };
+      this.$emit("delete", postData);
+    }
   },
 }
 </script>

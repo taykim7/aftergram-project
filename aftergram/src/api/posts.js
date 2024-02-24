@@ -7,7 +7,7 @@ import {
   setDoc,
   getDocs,
   updateDoc,
-  // deleteDoc
+  deleteDoc
 } from 'firebase/firestore';
 
 // 생성
@@ -40,9 +40,14 @@ function updatePost(postData) {
     gram: postData.gram
   });
 }
+// 삭제
+function deletePost(postData) {
+  deleteDoc(doc(db, "post", `${postData.uid}/datas/${postData.standardDate}`));
+}
 
 export {
   createPost,
   fetchAllPosts,
   updatePost,
+  deletePost
 }

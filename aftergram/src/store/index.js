@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser, registerUser } from '@/api/auth'
-import { createPost, fetchAllPosts, updatePost } from '@/api/posts'
+import { createPost, fetchAllPosts, updatePost, deletePost } from '@/api/posts'
 
 Vue.use(Vuex);
 
@@ -62,6 +62,14 @@ export default new Vuex.Store({
     async UPDATE({ commit }, postData) {
       // TODO 성공 유무 분기 처리
       await updatePost(postData);
+      // 새로 조회
+      const response = await fetchAllPosts(this.state.uid);
+      commit('setPosts', response);
+    },
+    // 삭제
+    async DELETE({ commit }, postData) {
+      // TODO 성공 유무 분기 처리
+      await deletePost(postData);
       // 새로 조회
       const response = await fetchAllPosts(this.state.uid);
       commit('setPosts', response);

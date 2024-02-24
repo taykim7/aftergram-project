@@ -10,7 +10,8 @@
       v-for="(post, index) in posts"
       :key="index"
       :post="post"
-      @update="updatePost"></AnalyzeList>
+      @update="updatePost"
+      @delete="deletePost"></AnalyzeList>
     </ul>
   </div>
 </template>
@@ -30,6 +31,9 @@ export default {
   methods: {
     async updatePost(postData) {
       await this.$store.dispatch('UPDATE', postData);
+    },
+    async deletePost(postData) {
+      await this.$store.dispatch('DELETE', postData);
     }
   }
 }
