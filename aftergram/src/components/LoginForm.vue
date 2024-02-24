@@ -41,19 +41,14 @@ export default {
       this.password = '';
     },
     async submitForm() {
-      try {
-        const userData = {
-          email: this.email,
-          password: this.password,
-        };
-        await this.$store.dispatch('LOGIN', userData);
-        // 로그인시 메인페이지로 push
-        this.$router.push('/main');
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.initForm();
-      }
+      const userData = {
+        email: this.email,
+        password: this.password,
+      };
+      await this.$store.dispatch('LOGIN', userData);
+      // 로그인시 메인페이지로 push
+      this.$router.push('/main');
+      this.initForm();
     },
   }
 }

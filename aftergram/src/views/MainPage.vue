@@ -35,7 +35,7 @@
       <div>
         <div v-if="!memoyn" @click="writeMemo">메모</div>
         <div v-else>
-          <input type="text" v-model="memo">
+          <textarea type="text" v-model="memo" placeholder="메모를 작성하세요"></textarea>
           <div v-if="memoyn" @click="writeMemo">닫기</div>
         </div>
       </div>
@@ -43,7 +43,7 @@
 
     <!-- 저장, 분석 버튼 -->
     <div>
-      <button v-if="!isFuture" @click="fetchGram()">저장</button>
+      <button v-if="!isFuture" @click="postGram()">저장</button>
       <router-link to="/analyze">분석</router-link>
     </div>
   </div>
@@ -92,7 +92,7 @@ export default {
     initGram() {
       if (this.posts) {
         // 가장 최근의 데이터를 세팅한다.
-        this.gram = this.posts[0].gram;
+        this.gram = this.posts[0]?.gram || 0;
       } else {
         this.gram =  0;
       }
@@ -105,6 +105,12 @@ export default {
     selectDate(day) {
       this.selectWeek(day.substring(0, 4), day.substring(4, 6) - 1, day.substring(6));
       this.gram = this.savedGram(day);
+      this.memo = this.savedMemo(day);
+      if (this.memo) {
+        this.memoyn = true;
+      } else {
+        this.memoyn = false;
+      }
     },
     // 선택된 날 기준 한 주 구성
     selectWeek(year, month, date) {
@@ -119,7 +125,6 @@ export default {
         this.selectDaysArr.push({
           listDay, listGram
         });
-        
       }
       // 기준 년, 월
       this.selectedYear = this.standardDate.getFullYear();
@@ -129,7 +134,12 @@ export default {
     // 선택한 날짜의 저장된 몸무게
     savedGram(day) {
       const savedData = this.$store.state.posts.find(data => data.standardDate === day);
-      return savedData?.gram || 0;
+      return Number(savedData?.gram) || 0;
+    },
+    // 선택한 날짜의 저장된 메모
+    savedMemo(day) {
+      const savedData = this.$store.state.posts.find(data => data.standardDate === day);
+      return savedData?.memo || '';
     },
     // 메모 열기
     writeMemo() {
@@ -137,16 +147,20 @@ export default {
     },
     // TODO 데이터 양식 수정 (날짜, 무게 등)
     // 게시글 작성
-    async fetchGram() {
-      const postData = {
-        uid: this.$store.state.uid,
-        createdDate: this.dateFormat(this.today),
-        standardDate: this.dateFormat(this.standardDate),
-        memo: this.memo,
-        gram: this.gram
-      };
-      await this.$store.dispatch('POST', postData);
-      alert('저장되었습니다.');
+    async postGram() {
+      if (this.validation(this.gram)) {
+        const postData = {
+          uid: this.$store.state.uid,
+          createdDate: this.dateFormat(this.today),
+          standardDate: this.dateFormat(this.standardDate),
+          memo: this.memo,
+          gram: this.gram
+        };
+        await this.$store.dispatch('POST', postData);
+        alert('저장되었습니다.');
+        const day = this.dateFormat(this.standardDate);
+        this.selectWeek(day.substring(0, 4), day.substring(4, 6) - 1, day.substring(6));
+      } else alert('다시');
     },
     // 날짜 포맷팅 (YYYYMMDD)
     dateFormat(date) {
@@ -157,7 +171,14 @@ export default {
         const dateStr = `${year}${month}${day}`;
         return dateStr;
       } else return 0;
-    }
+    },
+    // 정규 표현 검증식 - 소수점 이하 1자리까지
+    validation(gram) {
+      const check = gram;
+      if (/^\d+(\.\d{1})?$/.test(check)) {
+        return true
+      } else return false;
+    },
   }
 }
 </script>

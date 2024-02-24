@@ -4,15 +4,20 @@
     <div>
       <router-link to="/main">메인</router-link>
     </div>
-    <!-- TODO 차트 -->
-    <ul>
-      <AnalyzeList
-      v-for="(post, index) in posts"
-      :key="index"
-      :post="post"
-      @update="updatePost"
-      @delete="deletePost"></AnalyzeList>
-    </ul>
+    <div v-if="0 < posts.length">
+      <!-- TODO 차트 -->
+      <ul>
+        <AnalyzeList
+        v-for="(post, index) in posts"
+        :key="index"
+        :post="post"
+        @update="updatePost"
+        @delete="deletePost"></AnalyzeList>
+      </ul>
+    </div>
+    <div v-else>
+      데이터가 없습니다.
+    </div>
   </div>
 </template>
 
