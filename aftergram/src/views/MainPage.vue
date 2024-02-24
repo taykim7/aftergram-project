@@ -21,7 +21,7 @@
     </div>
 
     <!-- 몸무게 입력 -->
-    <div>
+    <div v-if="!isFuture">
       <div>
         <button @click="calgram(-1.0)">1.0</button>
         <button @click="calgram(-0.1)">0.1</button>
@@ -40,6 +40,7 @@
         </div>
       </div>
     </div>
+    <div v-else>미래에 어떻게 될지는 아무도 몰라요</div>
 
     <!-- 저장, 분석 버튼 -->
     <div>

@@ -25,13 +25,18 @@
 import AnalyzeList from '../components/AnalyzeList.vue';
 
 export default {
+  data() {
+    return {
+      posts: []
+    }
+  },
   components: {
     AnalyzeList,
   },
-  computed: {
-    posts() {
-      return this.$store.state.posts;
-    },
+  computed: {},
+  mounted() {
+    // 모든 데이터 가져오기
+    this.posts = this.$store.state.posts;
   },
   methods: {
     async updatePost(postData) {

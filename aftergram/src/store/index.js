@@ -16,6 +16,7 @@ export default new Vuex.Store({
     uid: '',
     nickname: '',
     posts: [],
+    deleteSuccess: false,
   },
   getters: {
     // 로그인 여부
@@ -30,11 +31,11 @@ export default new Vuex.Store({
     clearUid(state) {
       state.uid = '';
     },
-    setEmail(state, email) { 
-      state.email = email;
-    },
     setPosts(state, posts) {
       state.posts = posts;
+    },
+    setDeleteSuccess(state, flag) {
+      state.deleteSuccess = flag;
     }
   },
   actions: {
@@ -103,26 +104,25 @@ export default new Vuex.Store({
       try {
         const response = await updatePost(postData);
         if (!response) {
-          await dispatch('FETCH')
+          await dispatch('FETCH');
         }
       } catch (error) {
         console.log(error);
       }
       // 새로 조회
-      dispatch('FETCH')
+      dispatch('FETCH');
     },
     // 삭제
-    async DELETE({ dispatch }, postData) {
+    async DELETE({ commit }, postData) {
       try {
         const response = await deletePost(postData);
         if (!response) {
-          await dispatch('FETCH')
+          commit('setDeleteSuccess', true);
         }
       } catch (error) {
         console.log(error);
+        commit('setDeleteSuccess', false);
       }
-      // 새로 조회
-      dispatch('FETCH')
     },
   }
 });

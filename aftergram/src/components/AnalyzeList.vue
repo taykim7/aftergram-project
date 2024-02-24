@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li v-if="!deleted">
     <div>
       <span>{{ dateFormatKor(standardDate) }}</span>
       <input type="text"
@@ -32,6 +32,7 @@ export default {
       standardDate: '',
       gram: 0,
       memo: '',
+      deleted: false,
     }
   },
   mounted() {
@@ -69,7 +70,7 @@ export default {
       const result = window.confirm('정말 삭제하실건가요?');
       if (result) {
         await this.deleteGram();
-        alert('삭제완료');
+        this.deleted = true;
       }
     },
     // 게시글 수정
@@ -78,7 +79,7 @@ export default {
         uid: this.$store.state.uid,
         standardDate: this.standardDate,
         memo: this.memo,
-        gram: this.gram
+        gram: this.gram,
       };
       this.$emit("update", postData);
     },
