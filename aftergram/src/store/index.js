@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser, registerUser } from '@/api/auth'
-import { createPost, fetchAllPosts, updatePost, deletePost } from '@/api/posts'
+import { setPost, fetchPosts, updatePost, deletePost } from '@/api/posts'
 
 Vue.use(Vuex);
 
@@ -33,6 +33,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // TODO 전체 에러 처리
     // 로그인
     async LOGIN({ commit }, userData) {
       // TODO 로그인 성공 유무 분기 처리
@@ -47,32 +48,54 @@ export default new Vuex.Store({
       // TODO 닉네임 로직 추가 필요
     },
     // 게시
-    async POST({ commit }, postData) {
-      // TODO 성공 유무 분기 처리
-      await createPost(postData);
-      commit('setEmail', '');
+    async POST({ dispatch }, postData) {
+      try {
+        const response = await setPost(postData);
+        if (!response) {
+          await dispatch('FETCH')
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     // 조회
     async FETCH({ commit }) {
-      // TODO 성공 유무 분기 처리
-      const response = await fetchAllPosts(this.state.uid);
-      commit('setPosts', response);
+      try {
+        const response = await fetchPosts(this.state.uid);
+        const result = [];
+        response.forEach((doc) => {
+          result.push(doc.data());
+        });
+        commit('setPosts', result);
+      } catch (error) {
+        console.log(error);
+      }
     },
     // 수정
-    async UPDATE({ commit }, postData) {
-      // TODO 성공 유무 분기 처리
-      await updatePost(postData);
+    async UPDATE({ dispatch }, postData) {
+      try {
+        const response = await updatePost(postData);
+        if (!response) {
+          await dispatch('FETCH')
+        }
+      } catch (error) {
+        console.log(error);
+      }
       // 새로 조회
-      const response = await fetchAllPosts(this.state.uid);
-      commit('setPosts', response);
+      dispatch('FETCH')
     },
     // 삭제
-    async DELETE({ commit }, postData) {
-      // TODO 성공 유무 분기 처리
-      await deletePost(postData);
+    async DELETE({ dispatch }, postData) {
+      try {
+        const response = await deletePost(postData);
+        if (!response) {
+          await dispatch('FETCH')
+        }
+      } catch (error) {
+        console.log(error);
+      }
       // 새로 조회
-      const response = await fetchAllPosts(this.state.uid);
-      commit('setPosts', response);
+      dispatch('FETCH')
     },
   }
 });
