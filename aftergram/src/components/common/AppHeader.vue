@@ -31,7 +31,8 @@ export default {
     }
   },
   methods: {
-    logoutUser() {
+    async logoutUser() {
+      await this.$store.dispatch('LOGOUT');
       this.$store.commit('clearUid');
       this.$router.push('/login');
     },

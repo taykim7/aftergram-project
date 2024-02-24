@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { loginUser, registerUser } from '@/api/auth'
+import {
+  loginUser,
+  registerUser,
+  authChanged,
+  logoutUser
+} from '@/api/auth'
 import { setPost, fetchPosts, updatePost, deletePost } from '@/api/posts'
 
 Vue.use(Vuex);
@@ -36,16 +41,38 @@ export default new Vuex.Store({
     // TODO 전체 에러 처리
     // 로그인
     async LOGIN({ commit }, userData) {
-      // TODO 로그인 성공 유무 분기 처리
-      const response = await loginUser(userData);
-      // uid 저장
-      commit('setUid', response);
+      try {
+        const response = await loginUser(userData);
+        if (response) {
+          const uid = await authChanged()
+          if (uid) {
+            // 로그인 - 사용자 정보를 저장하고 UI 업데이트 등의 작업 수행
+            commit('setUid', uid);
+          } else {
+            // 로그아웃 - 사용자 정보를 초기화하고 UI 업데이트 등의 작업 수행
+            await logoutUser()
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // 로그아웃
+    async LOGOUT({ commit }) {
+      await logoutUser();
+      commit('setUid', '');
     },
     // 회원가입
+    // TODO 닉네임 로직 추가 필요
     async REGISTER({ commit }, userData) {
-      const { data } = await registerUser(userData);
-      commit('setMessage', `${data.username} 님이 가입되었습니다.`);
-      // TODO 닉네임 로직 추가 필요
+      try {
+        const response = await registerUser(userData);
+        if (response.user) {
+          commit('setMessage', ` ??? 님이 가입되었습니다.`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     // 게시
     async POST({ dispatch }, postData) {

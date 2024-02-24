@@ -2,42 +2,51 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from 'firebase/auth';
 import { auth } from '../plugins/firebase';
 
-// 회원가입 API
+// 회원가입
 async function registerUser(userData) { 
-  const userCredential = await createUserWithEmailAndPassword(
+  return createUserWithEmailAndPassword(
     auth,
     userData.email,
     userData.password
-  );
-  const user = userCredential;
-  console.log("회원가입 성공", user);
+  ).then((response) => response);
 }
 
-// 로그인 API
+// 로그인
 async function loginUser(userData) {
-  await signInWithEmailAndPassword(
+  return await signInWithEmailAndPassword(
     auth,
     userData.email,
     userData.password
-  );
-  let uid='';
-  // 현재 로그인한 사용자 가져오기
+  ).then((response) => response);
+}
+
+// 인증상태 변경 감지
+async function authChanged() {
+  let uid = '';
   await onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in
+      // 로그인 - 사용자 정보를 저장하고 UI 업데이트 등의 작업 수행
       uid = user.uid;
     } else {
-      // User is signed out
+      // 로그아웃 - 사용자 정보를 초기화하고 UI 업데이트 등의 작업 수행
     }
   });
   return uid;
 }
 
+// 로그아웃
+async function logoutUser() {
+  return await signOut(auth).then((response) => response);
+}
+
 export {
   loginUser,
   registerUser,
+  authChanged,
+  logoutUser,
 }
