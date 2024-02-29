@@ -9,13 +9,15 @@
         <span v-for="(day, index) in selectDaysArr"
         :key="index"
         :class="0 === day.listGram ? '' : 'saved'"
-        @click="selectDate(day.listDay)">
-          <b v-if="3 === index">
+        >
+          <button @click="selectDate(day.listDay)" :disabled="dateFormat(today) < day.listDay">
+            <b v-if="3 === index">
             {{ day.listDay.substring(6) }}
           </b>
           <i v-else>
             {{ day.listDay.substring(6) }}
           </i>
+          </button>
         </span>
       </div>
     </div>
@@ -23,13 +25,13 @@
     <!-- 몸무게 입력 -->
     <div v-if="!isFuture">
       <div>
-        <button @click="calgram(-1.0)">1.0</button>
-        <button @click="calgram(-0.1)">0.1</button>
-        <button @click="calgram(0.1)">0.1</button>
-        <button @click="calgram(1.0)">1.0</button>
+        <button @click="subGram(1.0)">1.0</button>
+        <button @click="subGram(0.1)">0.1</button>
+        <button @click="addGram(0.1)">0.1</button>
+        <button @click="addGram(1.0)">1.0</button>
       </div>
       <div>
-        <input type="text" v-model="gram">
+        <input type="text" v-model="gram" maxlength='4' >
         kg
       </div>
       <div>
@@ -92,15 +94,18 @@ export default {
     // 몸무게 초기화
     initGram() {
       if (this.posts) {
-        // 가장 최근의 데이터를 세팅한다.
-        this.gram = this.posts[0]?.gram || 0;
+        this.gram = Number(this.posts[0]?.gram) || 0;
       } else {
         this.gram =  0;
       }
     },
-    // 몸무게 계산 (소수점 제거)
-    calgram(gram) {
-      this.gram = Math.round((this.gram + gram) * 10) / 10;
+    // 몸무게 더하기 (소수점 제거)
+    addGram(add) {
+      this.gram = Math.round((this.gram + add) * 10) / 10;
+    },
+    // 몸무게 빼기 (소수점 제거)
+    subGram(sub) {
+      this.gram = Math.round((this.gram - sub) * 10) / 10;
     },
     // 날짜 선택
     selectDate(day) {
@@ -146,10 +151,9 @@ export default {
     writeMemo() {
       this.memoyn = !this.memoyn;
     },
-    // TODO 데이터 양식 수정 (날짜, 무게 등)
     // 게시글 작성
     async postGram() {
-      if (this.validation(this.gram)) {
+      if (this.gram && this.validation(this.gram)) {
         const postData = {
           uid: this.$store.state.uid,
           createdDate: this.dateFormat(this.today),
@@ -161,7 +165,7 @@ export default {
         alert('저장되었습니다.');
         const day = this.dateFormat(this.standardDate);
         this.selectWeek(day.substring(0, 4), day.substring(4, 6) - 1, day.substring(6));
-      } else alert('다시');
+      } else alert('입력되지 않았습니다.');
     },
     // 날짜 포맷팅 (YYYYMMDD)
     dateFormat(date) {
