@@ -6,6 +6,9 @@
     </div>
     <div v-if="0 < posts.length">
       <!-- TODO 차트 -->
+      <AnalyzeChart
+      :posts="posts"
+      ></AnalyzeChart>
       <ul>
         <AnalyzeList
         v-for="(post, index) in posts"
@@ -22,16 +25,18 @@
 </template>
 
 <script>
+import AnalyzeChart from '../components/AnalyzeChart.vue';
 import AnalyzeList from '../components/AnalyzeList.vue';
 
 export default {
   data() {
     return {
-      posts: []
+      posts: [],
     }
   },
   components: {
     AnalyzeList,
+    AnalyzeChart,
   },
   computed: {},
   mounted() {
