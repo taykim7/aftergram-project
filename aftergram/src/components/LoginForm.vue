@@ -1,15 +1,11 @@
 <template>
   <div class="login_form">
     <form @submit.prevent="submitForm">
-      <div>
-        <label for="email" class="login_input mb12">
-          <input id="email" type="text" v-model="email" placeholder="E-mail"/>
-        </label>
+      <div class="login_input mb12">
+        <input id="email" type="text" v-model="email" placeholder="E-mail"/>
       </div>
-      <div>
-        <label for="password" class="login_input mb12">
-          <input id="password" type="password" v-model="password" placeholder="Password"/>
-        </label>
+      <div class="login_input mb12">
+        <input id="password" type="password" v-model="password" placeholder="Password"/>
       </div>
       <button
         :disabled="!email || !password"

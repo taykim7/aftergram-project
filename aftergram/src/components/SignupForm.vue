@@ -1,29 +1,24 @@
 <template>
-  <div class="contents">
-    <div>
-      <form @submit.prevent="submitForm" class="form">
-        <div>
-          <label for="nickname">nickname: </label>
-          <input id="nickname" type="text" v-model="nickname" />
-        </div>
-        <div>
-          <label for="email">email:</label>
-          <input id="email" type="text" v-model="email" />
-        </div>
-        <div>
-          <label for="password">pw:</label>
-          <input id="password" type="text" v-model="password" />
-        </div>
-        <button
-          :disabled="!email || !password"
-          type="submit"
-          class="btn"
-          :class="!email || !password ? 'disabled' : null"
-        >
-          회원가입
-        </button>
-      </form>
-    </div>
+  <div class="signup_form">
+    <form @submit.prevent="submitForm">
+      <div class="signup_input mb12">
+        <input id="nickname" type="text" v-model="nickname" placeholder="Nickname"/>
+      </div>
+      <div class="signup_input mb12">
+        <input id="email" type="text" v-model="email" placeholder="E-mail"/>
+      </div>
+      <div class="signup_input mb12">
+        <input id="password" type="text" v-model="password" placeholder="Password"/>
+      </div>
+      <button
+        :disabled="!email || !password"
+        class="signup_button"
+        type="submit"
+        :class="!email || !password ? 'disabled' : null"
+      >
+        회원가입
+      </button>
+    </form>
   </div>
 </template>
 
@@ -67,5 +62,33 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.signup_form {
+  width: 100%;
+}
+.signup_form .signup_input {
+  display: block;
+  align-items: center;
+}
+.signup_form .signup_input input {
+  width: 80%;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 30px;
+
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+}
+.signup_form .signup_button {
+  background-color: rgb(44, 44, 44);
+  color: white;
+
+  font-size: 2rem;
+  font-weight: bolder;
+
+  border-radius: 30px;
+  width: 80%;
+  height: 40px;
+}
 </style>
