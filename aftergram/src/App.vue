@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <router-view></router-view>
+    <AppHeader></AppHeader>
+    <router-view class="container"></router-view>
   </div>
 </template>
 
@@ -17,6 +17,5 @@ export default {
 </script>
 
 <style>
-/* @import './css/reset.css';
-@import './css/common.css'; */
+@import './css/common.css';
 </style>

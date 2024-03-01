@@ -1,0 +1,310 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
+body {
+  font-family:'pretendard' ,'sans-serif';
+  margin: 0;
+  color: #140505;  
+}
+html {
+  font-size: 10px;
+}
+/* 여백 초기화 */
+body,
+div,
+ul,
+li,
+dl,
+dd,
+dt,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+fieldset,
+legend,
+p,
+select,
+table,
+th,
+td,
+tr,
+textarea,
+button,
+form,
+figure,
+figcaption {
+  margin: 0;
+  padding: 0;
+}
+
+/* a 링크 초기화 */
+a {
+  color: #222;
+  text-decoration: none;
+}
+
+/* 폰트 초기화 */
+body,
+input,
+textarea,
+select,
+button,
+table {
+  font-family: 'pretendard', sans-serif;
+  color: #303030;
+  font-size: 1.3rem;
+}
+button{
+  background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer} 
+/* 폰트 스타일 초기화 */
+em,
+address {
+  font-style: normal;
+}
+/* 아웃라인 초기화 */
+input:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: none;
+}
+/* 블릿기호 초기화 */
+ul,
+li,
+ol {
+  list-style: none;
+}
+input, textarea {
+  box-sizing: border-box;
+}
+/* 제목 태그 초기화 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 13px;
+  font-weight: normal;
+}
+/* 테두리 초기화 */
+img,
+fieldset {
+  border: 0 none;
+}
+/* 버튼 초기화 */
+button {
+  border: 0;
+}
+/* 반응형 */
+video,
+img {
+  width: 100%;
+}
+.wrap{
+  width: 100%;
+  height: 100%;
+  /* max-width: 43rem; */
+}
+.container{
+  /* max-width: 43rem; */
+  width: calc(100% - 3.2rem);
+  padding: 0 1.6rem 0rem 1.6rem;
+}
+.container2{
+  /* max-width: 43rem; */
+  width: calc(100% - 3.2rem);
+  padding: 0rem 1.6rem;
+}
+.display-none{
+  display: none !important;
+}
+input[type=checkbox],input[type=radio]{
+  display: none;
+}
+input[type=checkbox] + label ,input[type=radio] + label{
+  display: block;
+}
+/* 마진 */
+.mb4{
+  margin-bottom: 0.4rem !important;
+}
+.mb8{
+  margin-bottom: 0.8rem !important;
+}
+.mb12{
+  margin-bottom: 1.2rem !important;
+}
+.mb16{
+  margin-bottom: 1.6rem !important;
+}
+.mb20{
+  margin-bottom: 2rem !important;
+}
+.mb24{
+  margin-bottom: 2.4rem !important;
+}
+.mb28{
+  margin-bottom: 2.8rem !important;
+}
+.mb30{
+  margin-bottom: 3rem !important;
+}
+.mb32{
+  margin-bottom: 3.2rem !important;
+}
+.mb36{
+  margin-bottom: 3.6rem !important;
+}
+.mb40{
+  margin-bottom: 4rem !important;
+}
+.mb60{
+  margin-bottom: 6rem !important;
+}
+.mb80{
+  margin-bottom: 8rem !important;
+}
+
+.mt4{
+  margin-top: 0.4rem !important;
+}
+.mt8{
+  margin-top: 0.8rem !important;
+}
+.mt12{
+  margin-top: 1.2rem !important;
+}
+.mt16{
+  margin-top: 1.6rem !important;
+}
+.mt20{
+  margin-top: 2rem !important;
+}
+.mt24{
+  margin-top: 2.4rem !important;
+}
+.mt28{
+  margin-top: 2.8rem !important;
+}
+.mt30{
+  margin-top: 3rem !important;
+}
+.mt32{
+  margin-top: 3.2rem !important;
+}
+.mt36{
+  margin-top: 3.6rem !important;
+}
+.mt40{
+  margin-top: 4rem !important;
+}
+
+.ml4{
+  margin-left: 0.4rem !important;
+}
+.ml8{
+  margin-left: 0.8rem !important;
+}
+.ml12{
+  margin-left: 1.2rem !important;
+}
+.ml16{
+  margin-left: 1.6rem !important;
+}
+
+.mr4{
+  margin-right: 0.4rem !important;
+}
+.mr8{
+  margin-right: 0.8rem !important;
+}
+.mr12{
+  margin-right: 1.2rem !important;
+}
+.mr4{
+  margin-right: 0.4rem !important;
+}
+.mr16{
+  margin-right: 1.6rem !important;
+}
+
+/* 패딩 */
+.pb4{
+  padding-bottom: 0.4rem !important;
+}
+.pb8{
+  padding-bottom: 0.8rem !important;
+}
+.pb12{
+  padding-bottom: 1.2rem !important;
+}
+.pb16{
+  padding-bottom: 1.6rem !important;
+}
+.pb20{
+  padding-bottom: 2rem !important;
+}
+.pb24{
+  padding-bottom: 2.4rem !important;
+}
+.pb28{
+  padding-bottom: 2.8rem !important;
+}
+.pb30{
+  padding-bottom: 3rem !important;
+
+}
+.pb32{
+  padding-bottom: 3.2rem !important;
+}
+.pb36{
+  padding-bottom: 3.6rem !important;
+}
+.pb40{
+  padding-bottom: 4rem !important;
+}  
+
+.pt4{
+  padding-top: 0.4rem !important;
+}
+.pt8{
+  padding-top: 0.8rem !important;
+}
+.pt12{
+  padding-top: 1.2rem !important;
+}
+.pt16{
+  padding-top: 1.6rem !important;
+}
+.pt20{
+  padding-top: 2rem !important;
+}
+.pt24{
+  padding-top: 2.4rem !important;
+}
+.pt28{
+  padding-top: 2.8rem !important;
+}
+.pt32{
+  padding-top: 3.2rem !important;
+}
+.pt36{
+  padding-top: 3.6rem !important;
+}
+.pt40{
+  padding-top: 4rem !important;
+}  
+.pl8{
+  padding-left: 0.8rem !important;
+}
+
+/* 공통 css */
+.container {
+  background-color: rgb(79, 235, 100);
+  padding-top: 100px;
+  align-items: center;
+}
