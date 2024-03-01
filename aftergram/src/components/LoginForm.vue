@@ -1,25 +1,25 @@
 <template>
-  <div class="contents">
-    <div>
-      <form @submit.prevent="submitForm" class="form">
-        <div>
-          <label for="email">email:</label>
-          <input id="email" type="text" v-model="email" />
-        </div>
-        <div>
-          <label for="password">pw:</label>
-          <input id="password" type="text" v-model="password" />
-        </div>
-        <button
-          :disabled="!email || !password"
-          type="submit"
-          class="btn"
-          :class="!email || !password ? 'disabled' : null"
-        >
-          로그인
-        </button>
-      </form>
-    </div>
+  <div class="login_form">
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="email" class="login_input mb12">
+          <input id="email" type="text" v-model="email" placeholder="E-mail"/>
+        </label>
+      </div>
+      <div>
+        <label for="password" class="login_input mb12">
+          <input id="password" type="password" v-model="password" placeholder="PASSWORD"/>
+        </label>
+      </div>
+      <button
+        :disabled="!email || !password"
+        type="submit"
+        class="login_button"
+        :class="!email || !password ? 'disabled' : null"
+      >
+        로그인
+      </button>
+    </form>
   </div>
 </template>
 
@@ -54,5 +54,33 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.login_form {
+  width: 100%;
+}
+.login_form .login_input {
+  display: block;
+  align-items: center;
+}
+.login_form .login_input input {
+  width: 80%;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 30px;
+
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+}
+.login_form .login_button {
+  background-color: rgb(44, 44, 44);
+  color: white;
+
+  font-size: 2rem;
+  font-weight: bolder;
+
+  border-radius: 30px;
+  width: 80%;
+  height: 40px;
+}
 </style>
