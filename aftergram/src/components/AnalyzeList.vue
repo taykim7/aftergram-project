@@ -1,22 +1,27 @@
 <template>
   <li v-if="!deleted">
-    <div>
-      <span>{{ dateFormatKor(standardDate) }}</span>
-      <input type="text"
-      :class="editFlag ? 'editGram' : 'inputGram'"
-      v-model="gram"
-      :readonly="!editFlag"/>kg
-    </div>
-    <div v-if="memo || editFlag">
-      <textarea
-      v-model="memo"
-      :class="editFlag ? 'editMemo' : 'inputMemo'"
-      :readonly="!editFlag"></textarea>
-    </div>
-    <div>
-      <!-- TODO 수정, 삭제 추가 -->
-      <button @click="tryUpdate">{{ editText }}</button>
-      <button @click="tryDelete">삭제</button>
+    <div class="analyze-list mb12">
+      <div class="analyze-list-detail">
+        <div>
+          <span>{{ dateFormatKor(standardDate) }}</span>
+          <input type="text"
+          :class="editFlag ? 'editGram' : 'inputGram'"
+          v-model="gram"
+          :readonly="!editFlag"/>kg
+        </div>
+        <div>
+          <!-- TODO 수정, 삭제 추가 -->
+          <button @click="tryUpdate">{{ editText }}</button>
+          <button @click="tryDelete">삭제</button>
+        </div>
+      </div>
+      <div class="analyze-list-textarea"
+      v-if="memo || editFlag">
+        <textarea
+        v-model="memo"
+        :class="editFlag ? 'editMemo' : 'inputMemo'"
+        :readonly="!editFlag"></textarea>
+      </div>
     </div>
   </li>
 </template>
@@ -96,6 +101,23 @@ export default {
 </script>
 
 <style scoped>
+.analyze-list {
+  background-color: aqua;
+  display: inline-block;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+}
+.analyze-list-textarea textarea {
+  width: 100%;
+}
+.analyze-list-detail {
+  background-color: rgb(92, 131, 131);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 .inputGram {
   width: 40px;
   font-size: 15px;

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <h1>분석 페이지</h1>
-    <div>
-      <router-link to="/main">메인</router-link>
+    <div class="greeting mt40">
+      <div>
+        <router-link to="/main">메인으로</router-link>
+      </div>
+      <span class="greeting_text">
+        오늘도 수고했어요.
+      </span>
     </div>
-    <div v-if="0 < posts.length">
+    <div class="tttt"
+    v-if="0 < posts.length">
       <!-- TODO 차트 -->
       <AnalyzeChart
       :posts="posts"
@@ -15,7 +20,8 @@
         :key="index"
         :post="post"
         @update="updatePost"
-        @delete="deletePost"></AnalyzeList>
+        @delete="deletePost">
+        </AnalyzeList>
       </ul>
     </div>
     <div v-else>
@@ -54,6 +60,39 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.greeting {
+  display: inline-block;
+  justify-content: left;
+  align-items: center;
+}
+.greeting .greeting_text {
+  text-align: left;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+.greeting .greeting_text p {
+  display: inline-block;
+  font-size: 3rem;
+}
+.tttt {
+  background-color: yellow;
+}
+.sample {
+  border: 1px solid black;
+  width: 100%;
+  height: 150px;
+}
+.login {
+  text-align: center;
+
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+.login .login_text {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
 </style>

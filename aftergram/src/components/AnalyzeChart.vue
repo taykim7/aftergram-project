@@ -1,8 +1,11 @@
 <template>
   <div>
-    <button @click="addData">addData</button>
-    <button @click="removeAll">removeAll</button>
-    <canvas ref='gramChart' id="gramChart"></canvas>
+    <div class="chart">
+      *이번주 *월별 조회 기능 추가 예정
+      <!-- <button @click="addData">addData</button>
+      <button @click="removeAll">removeAll</button> -->
+      <canvas ref='gramChart' id="gramChart"></canvas>
+    </div>
   </div>
 </template>
 
@@ -69,10 +72,10 @@ export default {
     },
   }
 }
-
-
 </script>
 
-<style>
-
+<style scoped>
+.chart {
+  background-color: rgb(255, 255, 255);
+}
 </style>
