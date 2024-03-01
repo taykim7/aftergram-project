@@ -1,12 +1,12 @@
 <template>
   <header>
     <div>
-      <router-link :to="logoLink">
+      <router-link :to="logoLink" class="logo">
         AfterGram
       </router-link>
       <span v-if="isUserLogin">{{ $store.state.email }} 계정 정보</span>
     </div>
-    <div>
+    <div class="navigations">
       <!-- 로그인 분기-->
       <template v-if='isUserLogin'>
         <a @click="logoutUser">로그아웃</a>
@@ -40,6 +40,36 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+header {
+  padding: 0 2rem 0 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 83, 18, 0.1);
+  z-index: 2;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.4);
+}
+header .logo {
+  color: white;
+  font-size: 2rem;
+}
+header .navigations {
+  display: flex;
+  align-items: center;
+}
+header .navigations a {
+  color: rgb(49, 47, 47);
+  font-size: 2rem;
+  margin-left: 10px;
+}
+header .navigations a.router-link-exact-active {
+  color: rgb(31, 29, 29);
+  font-weight: bolder;
+}
 </style>
