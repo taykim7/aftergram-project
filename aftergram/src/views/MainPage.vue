@@ -1,11 +1,16 @@
 <template>
   <div>
     <!-- 날짜 선택 -->
-    <div>
-      <button>달력</button>
-      {{ selectedYear }}년 {{ selectedMonth }}월
-      <!-- <button>오늘</button> -->
-      <div>
+    <div class="calender">
+
+      <div class="calender-date mt40">
+        <i class="icon icon-calender"></i>
+        <div class="calender-date-picked ml12">
+          {{ selectedYear }}년 {{ selectedMonth }}월
+        </div>
+      </div>
+
+      <div class="calender-pick mt16">
         <span v-for="(day, index) in selectDaysArr"
         :key="index"
         :class="0 === day.listGram ? '' : 'saved'"
@@ -23,31 +28,38 @@
     </div>
 
     <!-- 몸무게 입력 -->
-    <div v-if="!isFuture">
-      <div>
+    <div class="calender-input mt16"
+      v-if="!isFuture">
+      <div class="calender-input-buttons">
         <button @click="subGram(1.0)">1.0</button>
         <button @click="subGram(0.1)">0.1</button>
+        <div></div>
         <button @click="addGram(0.1)">0.1</button>
         <button @click="addGram(1.0)">1.0</button>
       </div>
-      <div>
+      <div class="calender-input-kg mt8">
         <input type="text" v-model="gram" maxlength='4' >
-        kg
+        <span class="ml12">
+          kg
+        </span>
       </div>
-      <div>
-        <div v-if="!memoyn" @click="writeMemo">메모</div>
+      <div class="calender-input-memo mt16">
+        <div v-if="!memoyn" @click="writeMemo">
+          <i class="icon icon-calender"></i>
+        </div>
         <div v-else>
-          <textarea type="text" v-model="memo" placeholder="메모를 작성하세요"></textarea>
-          <div v-if="memoyn" @click="writeMemo">닫기</div>
+          <div v-if="memoyn" @click="writeMemo">X</div>
+          <textarea type="text" class="mt16"
+          v-model="memo" placeholder="메모를 작성하세요"></textarea>
         </div>
       </div>
     </div>
     <div v-else>미래에 어떻게 될지는 아무도 몰라요</div>
 
     <!-- 저장, 분석 버튼 -->
-    <div>
-      <button v-if="!isFuture" @click="postGram()">저장</button>
-      <router-link to="/analyze">분석</router-link>
+    <div class="calender_buttons mt16">
+      <button v-if="!isFuture" @click="postGram()" class="calender_button">저장</button>
+      <router-link to="/analyze" class="calender_button ml16">분석</router-link>
     </div>
   </div>
 </template>
@@ -189,8 +201,120 @@ export default {
 </script>
 
 <style scoped>
-.saved { 
-  background-color:  rgb(95, 95, 95);
+/* 날짜 */
+.calender .calender-date {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.calender .calender-pick {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.calender .calender-pick span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: aliceblue;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.calender .calender-pick span.saved { 
+  background-color:  rgb(255, 208, 0);
   color: white;
-  }
+}
+.calender .calender-date-picked {
+  font-size: 3rem;
+  font-weight: bolder;
+}
+
+/* 몸무게 입력 */
+.calender-input {
+}
+.calender-input .calender-input-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calender-input .calender-input-buttons button{
+  background-color: rgb(31, 31, 41);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  border-radius: 10px;
+  width: 10%;
+  height: 20px;
+
+  font-size: 1.5rem;
+  font-weight: bolder;
+  text-align: center;
+  color: wheat;
+}
+.calender-input .calender-input-kg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 3rem;
+  font-weight: bolder;
+  text-align: center;
+}
+.calender-input .calender-input-kg input {
+  width: 50%;
+  border-radius: 30px;
+  height: 40px;
+  text-align: center;
+}
+.calender-input .calender-input-kg span {}
+.calender-input .calender-input-memo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.calender-input .calender-input-memo textarea {
+  height: 100px;
+}
+
+/* 저장, 분석버튼 */
+.calender_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calender_button {
+  background-color: rgb(44, 44, 44);
+  color: white;
+
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+
+  display: flex;
+  align-items: center ;
+  justify-content: center;
+
+  border-radius: 30px;
+  width: 45%;
+  height: 40px;
+}
+/* 아이콘 */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+}
+.icon.icon-calender {
+  background: url(../assets/img/svg/icon_calendar.svg) no-repeat;
+  background-size: contain;
+}
 </style>
