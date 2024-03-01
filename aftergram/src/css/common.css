@@ -307,4 +307,5 @@ input[type=checkbox] + label ,input[type=radio] + label{
   background-color: rgb(79, 235, 100);
   padding-top: 70px;
   align-items: center;
+	height: calc(100vh - 70px);
 }
