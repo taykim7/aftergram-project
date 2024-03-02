@@ -44,13 +44,18 @@
         </span>
       </div>
       <div class="calender-input-memo mt16">
-        <div v-if="!memoyn" @click="writeMemo">
-          <i class="icon icon-calender"></i>
+        <div class="memo-button">
+          <div v-if="!memoyn" @click="writeMemo">
+            <i class="icon icon-calender"></i>
+          </div>
+          <div v-else @click="writeMemo">
+            <i class="icon icon-calender"></i>
+          </div>
         </div>
-        <div v-else>
-          <div v-if="memoyn" @click="writeMemo">X</div>
+        <div v-if="memoyn" class="memo">
           <textarea type="text" class="mt16"
-          v-model="memo" placeholder="메모를 작성하세요"></textarea>
+            v-model="memo" placeholder="메모를 작성하세요">
+          </textarea>
         </div>
       </div>
     </div>
@@ -233,6 +238,10 @@ export default {
 
 /* 몸무게 입력 */
 .calender-input {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  
 }
 .calender-input .calender-input-buttons {
   display: flex;
@@ -260,26 +269,45 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.calender-input .calender-input-kg input {
+  width: 50%;
+  border: 0px;
+  border-radius: 30px;
+  height: 40px;
 
   font-size: 3rem;
   font-weight: bolder;
   text-align: center;
 }
-.calender-input .calender-input-kg input {
-  width: 50%;
-  border-radius: 30px;
-  height: 40px;
-  text-align: center;
-}
 .calender-input .calender-input-kg span {}
 .calender-input .calender-input-memo {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.calender-input .calender-input-memo .memo-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
-.calender-input .calender-input-memo textarea {
+.calender-input .calender-input-memo .memo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calender-input .calender-input-memo .memo textarea {
   height: 100px;
+  width: 90%;
+
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+  padding: 10px;
+
+  border: 0px;
+  border-radius: 10px;
 }
 
 /* 저장, 분석버튼 */
