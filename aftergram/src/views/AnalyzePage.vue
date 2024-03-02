@@ -2,19 +2,20 @@
   <div>
     <div class="greeting mt40">
       <div>
-        <router-link to="/main">메인으로</router-link>
+        <router-link to="/main">메인으로 돌아가기</router-link>
       </div>
       <span class="greeting_text">
         오늘도 수고했어요.
       </span>
     </div>
-    <div class="tttt"
-    v-if="0 < posts.length">
+    <div
+      v-if="0 < posts.length">
       <!-- TODO 차트 -->
       <AnalyzeChart
       :posts="posts"
-      ></AnalyzeChart>
-      <ul>
+      class="mt40">
+      </AnalyzeChart>
+      <ul class="mt40">
         <AnalyzeList
         v-for="(post, index) in posts"
         :key="index"
@@ -75,24 +76,5 @@ export default {
 .greeting .greeting_text p {
   display: inline-block;
   font-size: 3rem;
-}
-.tttt {
-  background-color: yellow;
-}
-.sample {
-  border: 1px solid black;
-  width: 100%;
-  height: 150px;
-}
-.login {
-  text-align: center;
-
-  display: block;
-  align-items: center;
-  justify-content: center;
-}
-.login .login_text {
-  font-size: 1.5rem;
-  font-weight: bolder;
 }
 </style>

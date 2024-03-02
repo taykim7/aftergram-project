@@ -7,9 +7,12 @@
           <input type="text"
           :class="editFlag ? 'editGram' : 'inputGram'"
           v-model="gram"
-          :readonly="!editFlag"/>kg
+          :readonly="!editFlag"/>
+          <span>
+            kg
+          </span>
         </div>
-        <div>
+        <div class="analyze-list-buttons">
           <!-- TODO 수정, 삭제 추가 -->
           <button @click="tryUpdate">{{ editText }}</button>
           <button @click="tryDelete">삭제</button>
@@ -19,6 +22,7 @@
       v-if="memo || editFlag">
         <textarea
         v-model="memo"
+        placeholder="추가할 메모를 입력하세요."
         :class="editFlag ? 'editMemo' : 'inputMemo'"
         :readonly="!editFlag"></textarea>
       </div>
@@ -102,57 +106,75 @@ export default {
 
 <style scoped>
 .analyze-list {
-  background-color: aqua;
   display: inline-block;
   justify-content: left;
   align-items: center;
   width: 100%;
 }
-.analyze-list-textarea textarea {
-  width: 100%;
-}
 .analyze-list-detail {
-  background-color: rgb(92, 131, 131);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 40px;
 }
-.inputGram {
-  width: 40px;
+.analyze-list-detail span {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.analyze-list-detail input {
   font-size: 15px;
+
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bolder;
+
+  margin: 0 10px 0 10px;
   border: 0;
   border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+
+  width: 20%;
+  height: 28px;
 }
-.editGram {
-  width: 40px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(7, 7, 7);
+.analyze-list-detail .analyze-list-buttons {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.analyze-list-detail .analyze-list-buttons button {
+  background-color: rgb(44, 44, 44);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  text-align: center;
+  border-radius: 5px;
+  width: 45%;
+  height: 20px;
+  margin-left: 10px;
+}
+.analyze-list-detail .inputGram {
+  background-color: rgb(166, 173, 63);
+}
+.analyze-list-detail .editGram {
+  background-color: rgb(53, 53, 53);
   color: white;
 }
-.inputMemo {
-  width: 150px;
+.analyze-list-textarea textarea {
+  width: 100%;
   font-size: 15px;
   border: 0;
   border-radius: 5px;
   outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+  padding: 10px;
 }
-.editMemo {
-  width: 150px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 5px;
-  outline: none;
-  padding-left: 10px;
+.analyze-list-textarea .inputMemo {
+  background-color: rgb(255, 255, 255);
+}
+.analyze-list-textarea .editMemo {
   background-color: rgb(7, 7, 7);
   color: white;
 }
