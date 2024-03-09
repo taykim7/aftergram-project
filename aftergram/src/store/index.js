@@ -17,6 +17,8 @@ export default new Vuex.Store({
     nickname: '',
     posts: [],
     deleteSuccess: false,
+    message: '',
+    displayName: '',
   },
   getters: {
     // 로그인 여부
@@ -36,6 +38,12 @@ export default new Vuex.Store({
     },
     setDeleteSuccess(state, flag) {
       state.deleteSuccess = flag;
+    },
+    setMessage(state, message) {
+      state.message = message;
+    },
+    setDisplayName(state, displayName) {
+      state.displayName = displayName;
     }
   },
   actions: {
@@ -45,10 +53,11 @@ export default new Vuex.Store({
       try {
         const response = await loginUser(userData);
         if (response) {
-          const uid = await authChanged()
-          if (uid) {
+          const userInfo = await authChanged()
+          if (userInfo.uid) {
             // 로그인 - 사용자 정보를 저장하고 UI 업데이트 등의 작업 수행
-            commit('setUid', uid);
+            commit('setUid', userInfo.uid);
+            commit('setDisplayName', userInfo.displayName);
           } else {
             // 로그아웃 - 사용자 정보를 초기화하고 UI 업데이트 등의 작업 수행
             await logoutUser()
@@ -67,10 +76,9 @@ export default new Vuex.Store({
     // TODO 닉네임 로직 추가 필요
     async REGISTER({ commit }, userData) {
       try {
-        const response = await registerUser(userData);
-        if (response.user) {
-          commit('setMessage', ` ??? 님이 가입되었습니다.`);
-        }
+        await registerUser(userData).then(() => {
+          commit('setMessage', `${userData.displayName} 님이 가입되었습니다.`);
+        });
       } catch (error) {
         console.log(error);
       }
