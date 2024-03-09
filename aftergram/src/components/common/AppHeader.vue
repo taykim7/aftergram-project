@@ -4,7 +4,6 @@
       <router-link :to="logoLink" class="logo">
         AfterGram
       </router-link>
-      <span v-if="isUserLogin">{{ $store.state.email }} 계정 정보</span>
     </div>
     <div class="navigations">
       <!-- 로그인 분기-->

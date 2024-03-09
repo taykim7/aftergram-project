@@ -2,7 +2,7 @@
   <div class="signup_form">
     <form @submit.prevent="submitForm">
       <div class="signup_input mb12">
-        <input id="nickname" type="text" v-model="nickname" placeholder="Nickname"/>
+        <input id="displayName" type="text" v-model="displayName" placeholder="Nickname"/>
       </div>
       <div class="signup_input mb12">
         <input id="email" type="text" v-model="email" placeholder="E-mail"/>
@@ -27,7 +27,7 @@
 export default {
   data() {
     return {
-      nickname: '',
+      displayName: '',
       email: '',
       password: '',
     }
@@ -37,7 +37,7 @@ export default {
   methods: {
     // 초기화
     initForm() {
-      this.nickname = '';
+      this.displayName = '';
       this.email = '';
       this.password = '';
     },
@@ -45,13 +45,15 @@ export default {
     async submitForm() {
       try {
         const userData = {
-          username: this.username,
+          displayName: this.displayName,
           email: this.email,
           password: this.password,
         };
+        console.log(userData);
+        // TODO 검증 추가
         await this.$store.dispatch('REGISTER', userData);
         // 로그인시 메인페이지로 push
-        this.$router.push('/main');
+        this.$router.push('/login');
       } catch (error) {
         console.log(error);
       } finally {

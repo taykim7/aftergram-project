@@ -2,7 +2,8 @@
   <div>
     <!-- 날짜 선택 -->
     <div class="calender">
-
+      <!-- TODO 프로필 변경 기능 -->
+      <span>{{ $store.state.displayName || '알 수 없는 사용자' }} 님 안녕하세요</span>
       <div class="calender-date mt40">
         <i class="icon icon-calender"></i>
         <div class="calender-date-picked ml12">
