@@ -2,7 +2,7 @@
 body {
   font-family:'pretendard' ,'sans-serif';
   margin: 0;
-  color: #140505;  
+  color: #140505;
 }
 html {
   font-size: 10px;
@@ -308,4 +308,13 @@ input[type=checkbox] + label ,input[type=radio] + label{
   padding-top: 70px;
   align-items: center;
 	height: calc(100vh - 70px);
+}
+
+/* 드래그 방지*/
+#app {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }
