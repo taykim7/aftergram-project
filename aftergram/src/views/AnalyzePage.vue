@@ -1,19 +1,30 @@
 <template>
-  <div>
-    <div class="greeting mt40">
-      <div>
-        <router-link to="/main">메인으로 돌아가기</router-link>
+  <div class="analyze">
+    <div class="analyze-back mt40">
+      <div class="analyze-back-text">
+        <router-link to="/main">돌아가기</router-link>
       </div>
-      <span class="greeting_text">
-        오늘도 수고했어요.
-      </span>
+    </div>
+    <div class="analyze-header mt40">
+      <div class="analyze-header-title">
+        <span>
+          통계
+        </span>
+      </div>
+      <div class="analyze-header-menu">
+        <select name="language" id="language">
+          <option value="0" selected>전체</option>
+          <option value="1">월간</option>
+          <option value="2">주간</option>
+        </select>
+      </div>
     </div>
     <div
+    class="mt40"
       v-if="0 < posts.length">
       <!-- TODO 차트 -->
       <AnalyzeChart
-      :posts="posts"
-      class="mt40">
+      :posts="posts">
       </AnalyzeChart>
       <ul class="mt40">
         <AnalyzeList
@@ -63,10 +74,37 @@ export default {
 
 <style scoped>
 
-.greeting {
-  display: inline-block;
-  justify-content: left;
-  align-items: center;
+.analyze {
+  display: block;
+  justify-content: center;
+}
+.analyze .analyze-back .analyze-back-text {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.analyze .analyze-header {
+  display: flex;
+  justify-content: space-between;
+}
+.analyze .analyze-header .analyze-header-title{
+  text-align: left;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+.analyze .analyze-header .analyze-header-menu{
+  text-align: left;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+.analyze .analyze-header .analyze-header-menu select{
+  border: none;
+  padding: 5px 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+.analyze .analyze-header .analyze-header-menu select:focus{
+  outline: none;
 }
 .greeting .greeting_text {
   text-align: left;

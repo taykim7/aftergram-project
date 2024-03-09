@@ -2,15 +2,21 @@
   <li v-if="!deleted">
     <div class="analyze-list mb12">
       <div class="analyze-list-detail">
-        <div>
-          <span>{{ dateFormatKor(standardDate) }}</span>
-          <input type="text"
-          :class="editFlag ? 'editGram' : 'inputGram'"
-          v-model="gram"
-          :readonly="!editFlag"/>
-          <span>
-            kg
-          </span>
+        <div class="analyze-item">
+          <div class="analyze-item-date">
+            <span>
+              {{ dateFormatKor(standardDate) }}
+            </span>
+          </div>
+          <div class="analyze-item-gram">
+            <input type="text"
+            :class="editFlag ? 'editGram' : 'inputGram'"
+            v-model="gram"
+            :readonly="!editFlag"/>
+            <span>
+              kg
+            </span>
+          </div>
         </div>
         <div class="analyze-list-buttons">
           <!-- TODO 수정, 삭제 추가 -->
@@ -59,7 +65,7 @@ export default {
     dateFormatKor(date) {
       let year = date.substring(0, 4);
       let month = '0' === date.substring(4, 5)? date.substring(5, 6): date.substring(4, 6);
-      let day = date.substring(6);
+      let day = '0' === date.substring(6, 7)? date.substring(7): date.substring(6);
       return `${year}년 ${month}월 ${day}일`;
     },
     async tryUpdate() {
@@ -105,42 +111,56 @@ export default {
 </script>
 
 <style scoped>
-.analyze-list {
-  display: inline-block;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
-}
+.analyze-list {}
 .analyze-list-detail {
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 40px;
 }
-.analyze-list-detail span {
+.analyze-list-detail .analyze-item {
+  width: 60%;
+}
+.analyze-list-detail .analyze-item span {
   text-align: left;
   font-size: 1.5rem;
   font-weight: bolder;
 }
-.analyze-list-detail input {
+.analyze-list-detail .analyze-item .analyze-item-date{
+  display: inline-block;
+  width: 55%;
+}
+.analyze-list-detail .analyze-item .analyze-item-date span{
+}
+.analyze-list-detail .analyze-item .analyze-item-gram{
+  display: inline-block;
+  width: 25%;
+
+}
+
+.analyze-list-detail .analyze-item .analyze-item-gram input {
   font-size: 15px;
 
-  text-align: center;
+  text-align: right;
   font-size: 1.5rem;
-  color: white;
+  
   font-weight: bolder;
-
-  margin: 0 10px 0 10px;
+  color: rgb(255, 255, 255);
   border: 0;
-  border-radius: 15px;
-
-  width: 20%;
-  height: 28px;
+  background: transparent;
+  width: 60%;
 }
+
+.analyze-list-detail .analyze-item .analyze-item-gram .inputGram {
+}
+.analyze-list-detail .analyze-item .analyze-item-gram .editGram {
+  color: rgb(255, 112, 112);
+}
+
+
 .analyze-list-detail .analyze-list-buttons {
-  width: 50%;
+  width: 25%;
   display: flex;
   justify-content: right;
   align-items: center;
@@ -152,17 +172,12 @@ export default {
   font-weight: bolder;
   text-align: center;
   border-radius: 5px;
-  width: 45%;
+  width: 30%;
   height: 20px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
-.analyze-list-detail .inputGram {
-  background-color: rgb(166, 173, 63);
-}
-.analyze-list-detail .editGram {
-  background-color: rgb(53, 53, 53);
-  color: white;
-}
+
+
 .analyze-list-textarea textarea {
   width: 100%;
   font-size: 15px;
