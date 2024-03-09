@@ -12,10 +12,10 @@
         </span>
       </div>
       <div class="analyze-header-menu">
-        <select name="language" id="language">
-          <option value="0" selected>전체</option>
-          <option value="1">월간</option>
-          <option value="2">주간</option>
+        <select name="language" id="language" @change="test">
+          <option value="all" selected>전체</option>
+          <option value="month">한 달</option>
+          <option value="week">일주일</option>
         </select>
       </div>
     </div>
@@ -49,6 +49,8 @@ import AnalyzeList from '../components/AnalyzeList.vue';
 export default {
   data() {
     return {
+      today: {},
+      todayFilter: {},
       posts: [],
     }
   },
@@ -58,6 +60,8 @@ export default {
   },
   computed: {},
   mounted() {
+    this.today = new Date();
+    this.todayFilter = this.today;
     // 모든 데이터 가져오기
     this.posts = this.$store.state.posts;
   },
@@ -67,6 +71,31 @@ export default {
     },
     async deletePost(postData) {
       await this.$store.dispatch('DELETE', postData);
+    },
+    // 날짜 포맷팅 (YYYYMMDD)
+    dateFormat(date) {
+      if (date) {
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const dateStr = `${year}${month}${day}`;
+        return dateStr;
+      } else return 0;
+    },
+    test(e) {
+      switch (e.target.value) {
+        case 'all':
+          this.posts = this.$store.state.posts;
+          break;
+        case 'month':
+          this.todayFilter = new Date(Date.parse(this.today) - 31 * 1000 * 60 * 60 * 24);
+          this.posts = this.$store.state.posts.filter((data) => data.standardDate > this.dateFormat(this.todayFilter));
+          break;
+        case 'week':
+          this.todayFilter = new Date(Date.parse(this.today) - 7 * 1000 * 60 * 60 * 24);
+          this.posts = this.$store.state.posts.filter((data) => data.standardDate > this.dateFormat(this.todayFilter));
+          break;
+      }
     }
   }
 }

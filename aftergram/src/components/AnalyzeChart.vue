@@ -1,8 +1,6 @@
 <template>
   <div>
     <div class="chart">
-      <!-- <button @click="addData">addData</button>
-      <button @click="removeAll">removeAll</button> -->
       <canvas ref='gramChart' id="gramChart"></canvas>
     </div>
   </div>
@@ -14,15 +12,36 @@ import { Chart } from 'chart.js'
 export default {
   data() {
     return {
-      omg: {},
+      today: {},
+      todayFilter: {},
+      chartDom: {},
       labelArr: [],
       dataArr: [],
+      postsFilter: [],
     }
   },
   props: {
     posts: [],
   },
+  watch: {
+    posts(value) {
+      this.removeAll();
+      // chart에 업데이트할 데이터(라벨, 배열) 구성
+      this.labelArr = value.map((item) => {
+        return (item.standardDate).substring(2);
+      });
+      this.dataArr = value.map((item) => {
+        return item.gram;
+      });
+      // chart에 업데이트
+      this.chartDom.data.labels.push(...this.labelArr);
+      this.chartDom.data.datasets.forEach((dataset) => { dataset.data.push(...this.dataArr) });
+      this.chartDom.update();
+    },
+  },
   mounted() {
+    this.today = new Date();
+    this.todayFilter = this.today;
     this.labelArr = this.posts.map((item) => {
       return (item.standardDate).substring(2);
     });
@@ -30,15 +49,11 @@ export default {
       return item.gram;
     });
     this.init();
-    console.log(this.posts);
-    // console.log(this.posts.filter(function (item) {
-    //   return item.standardDate;
-    // }));
   },
   methods: {
     // 차트 초기값 세팅
     init() {
-      this.omg = new Chart(document.getElementById('gramChart'), {
+      this.chartDom = new Chart(document.getElementById('gramChart'), {
         type: 'line',
         data: {
           labels: this.labelArr,
@@ -57,24 +72,21 @@ export default {
         }
       });
     },
-    // 데이터 추가
+    // 임시 데이터 추가
     addData() {
-      this.omg.data.labels.push(...['하이', '하이2', '하이3']);
-      this.omg.data.datasets.forEach((dataset) => { dataset.data.push(...[7, 10, 89]) });
-      this.omg.update();
+      this.chartDom.data.labels.push(...['하이', '하이2', '하이3']);
+      this.chartDom.data.datasets.forEach((dataset) => { dataset.data.push(...[7, 10, 89]) });
+      this.chartDom.update();
     },
-    // 데이터 전체 제거
+    // 임시 데이터 전체 제거
     removeAll() {
-      this.omg.data.labels = [];
-      this.omg.data.datasets.forEach((dataset) => { dataset.data = [] });
-      this.omg.update();
+      this.chartDom.data.labels = [];
+      this.chartDom.data.datasets.forEach((dataset) => { dataset.data = [] });
+      this.chartDom.update();
     },
   }
 }
 </script>
 
 <style scoped>
-.chart {
-  
-}
 </style>
