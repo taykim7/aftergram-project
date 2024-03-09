@@ -182,7 +182,7 @@ export default {
         alert('저장되었습니다.');
         const day = this.dateFormat(this.standardDate);
         this.selectWeek(day.substring(0, 4), day.substring(4, 6) - 1, day.substring(6));
-      } else alert('입력되지 않았습니다.');
+      } else alert('제대로 입력해주세요.');
     },
     // 날짜 포맷팅 (YYYYMMDD)
     dateFormat(date) {
@@ -194,12 +194,17 @@ export default {
         return dateStr;
       } else return 0;
     },
-    // 정규 표현 검증식 - 소수점 이하 1자리까지
+    // 검증
     validation(gram) {
-      const check = gram;
-      if (/^\d+(\.\d{1})?$/.test(check)) {
-        return true
-      } else return false;
+      // 소수점 이하 1자리까지
+      if (!/^\d+(\.\d{1})?$/.test(gram)) {
+        return false
+      }
+      // 30 ~ 200
+      if (!(30 < gram && gram < 200)) {
+        return false
+      }
+      else return true;
     },
   }
 }
