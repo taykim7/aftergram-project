@@ -11,9 +11,11 @@
       <template v-if='isUserLogin'>
         <a @click="logoutUser">로그아웃</a>
       </template>
+      <template v-else-if="nowPage === '/login'">
+        <router-link to="/signup">회원가입</router-link>
+      </template>
       <template v-else>
         <router-link to="/login">로그인</router-link>
-        <router-link to="/signup">회원가입</router-link>
       </template>
     </div>
   </header>
@@ -28,6 +30,9 @@ export default {
     },
     isUserLogin() {
       return this.$store.getters.isLogin;
+    },
+    nowPage() {
+      return this.$route.path;
     }
   },
   methods: {
@@ -67,9 +72,5 @@ header .navigations a {
   color: rgb(49, 47, 47);
   font-size: 2rem;
   margin-left: 10px;
-}
-header .navigations a.router-link-exact-active {
-  color: rgb(31, 29, 29);
-  font-weight: bolder;
 }
 </style>
